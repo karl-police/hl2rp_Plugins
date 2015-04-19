@@ -11,7 +11,7 @@ COMMAND.arguments = 1;
 
 -- Called when the command has been run.
 function COMMAND:OnRun(player, arguments)
-    if (PLUGIN:IsHeadcrabFaction(player:GetFaction())) then
+    if(PLUGIN:IsHeadcrabFaction(player:GetFaction())) then
 	    if (string.find(player:GetModel(), "models/Lamarr.mdl"))  then	
         for k, v in ipairs(player.GetAll()) do
         if (player:GetPos():Distance(v:GetPos()) <= 3) then
@@ -23,7 +23,7 @@ function COMMAND:OnRun(player, arguments)
 		Clockwork.player:Notify("You're not an Headcrab!")	
     end
 end	
-    elseif (PLUGIN:IsHeadcrabFaction(player:GetFaction())) then
+    elseif(PLUGIN:IsHeadcrabFaction(player:GetFaction())) then
         if (string.find(player:GetModel(), "models/headcrab.mdl"))  then	
 		for k, v in ipairs(player.GetAll()) do
 		if (player:GetPos():Distance(v:GetPos()) <= 3) then
@@ -34,8 +34,8 @@ end
 	else
 		Clockwork.player:Notify("You're not an Fast Headcrab!")
     end
-end	
-	elseif (PLUGIN:IsHeadcrabFaction(player:GetFaction())) then
+	
+	elseif(PLUGIN:IsHeadcrabFaction(player:GetFaction())) then
         if (string.find(player:GetModel(), "models/headcrabblack.mdl"))  then	
 		for k, v in ipairs(player.GetAll()) do
 		if (player:GetPos():Distance(v:GetPos()) <= 3) then
@@ -46,12 +46,6 @@ end
 	else
 		Clockwork.player:Notify("You're not an Poison Headcrab!")
     end;
-end;
-			end;
-		end;
-	else
-		Clockwork.player:Notify("You're not an Headcrab!")
-	end;
 end;
 
 COMMAND:Register();

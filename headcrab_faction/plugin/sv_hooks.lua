@@ -99,6 +99,7 @@ end
 	};
 	local randomSound = randomSounds[ math.random(1, #randomSounds) ];
 	player:EmitSound( randomSound, 60)	
+    end;
 end;
 
 -- Called when an entity takes damage.

@@ -10,16 +10,12 @@ COMMAND.arguments = 1;
 function COMMAND:OnRun(player, arguments)
 	if(PLUGIN:PlayerIsStalker(player)) then
 		if (string.find(model, "stalker")) then			
-			sound = "npc/stalker/stalker_alert2b.wav";			
-		end;
-		player:EmitSound(sound, 60);
-	end;
-end;
-			end;
-		end;
+			player:EmitSound("npc/stalker/stalker_alert2b.wav", 60);		
+		end;	
 	else
-		Clockwork.player:Notify("You're not an Stalker!")
+	Clockwork.player:Notify("You're not an Stalker!")
 	end;
 end;
+
 
 COMMAND:Register();

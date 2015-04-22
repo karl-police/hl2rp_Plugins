@@ -10,20 +10,20 @@ if (CLIENT) then
 	SWEP.Slot = 0;
 	SWEP.SlotPos = 5;
 	SWEP.DrawAmmo = false;
-	SWEP.PrintName = "Laser beam";
+	SWEP.PrintName = "Vortibeam";
 	SWEP.DrawCrosshair = true;
 	
-	game.AddParticles("particles/Weapon_FX.pcf");
+	game.AddParticles("particles/Vortigaunt_FX.pcf");
 end
 
-PrecacheParticleSystem("Weapon_Combine_Ion_Cannon_Beam");
-PrecacheParticleSystem("Weapon_Combine_Ion_Cannon");
-PrecacheParticleSystem("Weapon_Combine_Ion_Cannon_Backup");
+PrecacheParticleSystem("vortigaunt_beam");
+PrecacheParticleSystem("vortigaunt_beam_b");
+PrecacheParticleSystem("vortigaunt_charge_token");
 
-SWEP.Instructions = "Primary Fire: Fire your laser beam.";
+SWEP.Instructions = "Primary Fire: Fire your laz0r.";
 SWEP.Purpose = "For death.";
 SWEP.Contact = "";
-SWEP.Author	= "karl-police";
+SWEP.Author	= "RJ";
 
 SWEP.WorldModel = "models/weapons/w_fists_t.mdl";
 SWEP.ViewModel = "models/weapons/v_punch.mdl";
@@ -76,22 +76,23 @@ function SWEP:PrimaryAttack()
 	
 	if (self.Owner:OnGround()) then
 		if (SERVER) then
-			self.Owner:SetForcedAnimation("jumpback", 1.5);
+			self.Owner:SetForcedAnimation("zapattack1", 1.5);
 		end;
 		
-		local chargeSound = CreateSound(self.Owner, "npc/stalker/laser_start.wav");
+		local chargeSound = CreateSound(self.Owner, "npc/vort/attack_charge.wav");
 		chargeSound:Play();
 		
-		ParticleEffectAttach("Weapon_Combine_Ion_Cannon_Backup", PATTACH_POINT_FOLLOW, self.Owner, self.Owner:LookupAttachment("ValveBiped.Bip01_Head1"));
+		ParticleEffectAttach("vortigaunt_charge_token", PATTACH_POINT_FOLLOW, self.Owner, self.Owner:LookupAttachment("leftclaw"));
+		ParticleEffectAttach("vortigaunt_charge_token", PATTACH_POINT_FOLLOW, self.Owner, self.Owner:LookupAttachment("rightclaw"));
 		
 		timer.Simple(1.5, function()
 			chargeSound:Stop();
-			self.Owner:EmitSound("npc/stalker/laser_burn.wav");
+			self.Owner:EmitSound("npc/vort/attack_shoot.wav");
 			
 			local tr = util.QuickTrace(self.Owner:EyePos(), self.Owner:EyeAngles():Forward()*5000, self.Owner);
 			
 			self.Owner:StopParticles();
-			util.ParticleTracerEx("Weapon_Combine_Ion_Cannon_Beam", self.Owner:GetAttachment(self.Owner:LookupAttachment("ValveBiped.Bip01_Head1")).Pos,tr.HitPos, true, self.Owner:EntIndex(), self.Owner:LookupAttachment("ValveBiped.Bip01_Head1"));
+			util.ParticleTracerEx("vortigaunt_beam", self.Owner:GetAttachment(self.Owner:LookupAttachment("leftclaw")).Pos,tr.HitPos, true, self.Owner:EntIndex(), self.Owner:LookupAttachment("leftclaw"));
 			
 			util.BlastDamage(self.Owner, self.Owner, tr.HitPos, 10, 400);
 		end);

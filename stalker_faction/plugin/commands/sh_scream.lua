@@ -2,12 +2,10 @@ local PLUGIN = PLUGIN;
 
 local COMMAND = Clockwork.command:New("Scream");
 COMMAND.tip = "Makes you scream.";
-COMMAND.text = "<string>";
 COMMAND.flags = bit.bor(CMD_DEFAULT, CMD_DEATHCODE, CMD_FALLENOVER);
-COMMAND.arguments = 1;
 
 -- Called when the command has been run.
-function COMMAND:OnRun(player, arguments)
+function COMMAND:OnRun(player)
 	if(PLUGIN:PlayerIsStalker(player)) then
 		if (string.find(model, "stalker")) then			
 			player:EmitSound("npc/stalker/stalker_alert2b.wav", 60);		
